@@ -3,14 +3,32 @@
 SCRIPT=$( readlink -f "$0" )
 SCRIPT_PATH=$( dirname "$SCRIPT" )
 
-CONVERSION_SCRIPT="${SCRIPT_PATH}/run_conversion_chain.sh"
+CONVERSION_SCRIPT_DEFAULT="${SCRIPT_PATH}/run_conversion_chain.sh"
 
 CORPUS_FILES_LIST_DEFAULT="${SCRIPT_PATH}/corpus_files.txt"
 
 CORPUS_ROOT_PATH_DEFAULT="${SCRIPT_PATH}/KielCorpus/"
 
 usage () {
+  cat << END
 
+  $0 [-h|--help] [-c CONVERSION_SCRIPT] [-l CORPUS_FILES_LIST] [-r CORPUS_ROOT_PATH]
+
+  Script that converts Kiel Corpus files based on a list of corpus files
+  using a conversion script.
+
+  [-h|--help]  this output
+
+  [-c CONVERSION_SCRIPT]  specify conversion script
+                          default: $CONVERSION_SCRIPT_DEFAULT
+
+  [-l CORPUS_FILES_LIST]  specify list of corpus files
+                          default: $CORPUS_FILES_LIST_DEFAULT
+
+  [-r CORPUS_ROOT_PATH]   specify root path of Kiel Corpus
+                          default: $CORPUS_ROOT_PATH_DEFAULT
+
+END
 }
 
 clean_exit () {
@@ -20,7 +38,6 @@ clean_exit () {
   date
   exit
 }
-trap clean_exit 2
 
 while [ $# -gt 0 ]; do
   case $1 in
@@ -75,6 +92,8 @@ if [ ! -d "$CORPUS_ROOT_PATH" ]; then
   echo "Exitting ..."
   exit 1
 fi
+
+trap clean_exit 2
 
 FILES=$( cat "$CORPUS_FILES_LIST" )
 
