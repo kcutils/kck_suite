@@ -3,7 +3,7 @@ This is a collection of scripts to use all conversion tools
 for Kiel Corpus files in a nice way.
 
 To use the XSLT-processor you will have to put the java archive
-for Saxon-HE (saxon9he.jar) into
+for Saxon-HE (saxonhe.jar) into
 
   ./kctei_stylesheets/lib/
 
